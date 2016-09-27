@@ -63,11 +63,10 @@ public class CheckBoxPopup extends EffectPopup{
 
 		//User wants effect applied pixel-by-pixel
 		if(pixelOrChannel != null && pixelOrChannel.isSelected()){
-			int[] modifiers = {-1};
-			return modifiers;
+			return new int[]{-1};
 		}
 		
-		ArrayList<Integer> modifiersList = new ArrayList<Integer>();
+		ArrayList<Integer> modifiersList = new ArrayList<>();
 		
 		//If PixelStream has Alpha, and it is selected, add Alpha Mask
 		if(pixelStream.hasAlpha() && a.isSelected())
@@ -116,28 +115,22 @@ public class CheckBoxPopup extends EffectPopup{
 		g.setEnabled(false);
 		b.setEnabled(false);
 		
-		pixelOrChannel.addChangeListener(new ChangeListener(){
-			@Override
-			public void stateChanged(ChangeEvent arg0) {
-				
-				boolean isSelected = pixelOrChannel.isSelected();
-				
-				if(pixelStream.hasAlpha()){
-					a.setEnabled(!isSelected);
-					a.setSelected(true);
-				}
-				
-				r.setEnabled(!isSelected);
-				g.setEnabled(!isSelected);
-				b.setEnabled(!isSelected);
-				r.setSelected(true);
-				g.setSelected(true);
-				b.setSelected(true);
-			}
-		});
+		pixelOrChannel.addChangeListener(arg0 -> {
+            boolean isSelected = pixelOrChannel.isSelected();
+
+            if(pixelStream.hasAlpha()){
+                a.setEnabled(!isSelected);
+                a.setSelected(true);
+            }
+
+            r.setEnabled(!isSelected);
+            g.setEnabled(!isSelected);
+            b.setEnabled(!isSelected);
+            r.setSelected(true);
+            g.setSelected(true);
+            b.setSelected(true);
+        });
 		
 		add(pixelOrChannel, BorderLayout.WEST);
-		
 	}
-
 }

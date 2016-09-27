@@ -27,14 +27,7 @@ public class HelpPopup extends Popup{
 		setAlwaysOnTop(true);
 		
 		JButton ok = new JButton("OK");
-		ok.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				closeAction();
-			}
-			
-		});
+		ok.addActionListener(e -> closeAction());
 		
 		JPanel mainPanel = new JPanel();
 		JLabel label = new JLabel("<html>" + additionalInfo + "</html>");

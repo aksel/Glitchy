@@ -59,10 +59,8 @@ public class IOController{
 	 */
 	public int[] readRaw(String path, boolean alpha) {
 		FileInputStream fis = createFileInputStream(path);
-		
-		int[] convertedRaw = new RAWDataConverter().readRaw(fis,alpha);
-		
-		return convertedRaw;
+
+		return new RAWDataConverter().readRaw(fis,alpha);
 	}
 	
 	/**
@@ -72,8 +70,7 @@ public class IOController{
 	 */
 	public FileInputStream createFileInputStream(String path) {
 		try {
-			FileInputStream fis = new FileInputStream(path);
-			return fis;
+			return new FileInputStream(path);
 		} catch (IOException e) {
 			return null;
 		}
@@ -98,8 +95,6 @@ public class IOController{
 			oos.writeObject(project);
 			oos.close();
 
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -118,11 +113,7 @@ public class IOController{
 			ois.close();
 
 			return result;
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
+		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		return null;

@@ -111,8 +111,10 @@ public class PopupController {
 			eP = new ReorderPopup(this, pixelStream);
 			break;
 		}
-		
-		eP.popup(window);
+
+		if (eP != null) {
+			eP.popup(window);
+		}
 	}
 	
 	/**

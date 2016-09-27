@@ -44,12 +44,7 @@ public class HelpButton extends JButton{
 		this.setToolTipText(help.getHelpDescription(type));
 		
 		if (clickable) {
-			addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					buttonClicked();
-				}		
-			});
+			addActionListener(e -> buttonClicked());
 			
 			setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		}

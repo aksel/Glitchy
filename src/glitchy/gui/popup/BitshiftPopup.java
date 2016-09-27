@@ -65,17 +65,9 @@ public class BitshiftPopup extends EffectPopup{
 		slider.setSnapToTicks(true);
 		slider.setFocusable(false);
 		
-		slider.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
-				input.setText(Integer.toString(slider.getValue()));
-			}
-		});
+		slider.addPropertyChangeListener(evt -> input.setText(Integer.toString(slider.getValue())));
 		
-		input.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				slider.setValue(Integer.parseInt(input.getText()));
-			}
-		});
+		input.addActionListener(arg0 -> slider.setValue(Integer.parseInt(input.getText())));
 		
 		modifiersPanel.add(new JLabel("Number of bits"));
 		modifiersPanel.add(input);

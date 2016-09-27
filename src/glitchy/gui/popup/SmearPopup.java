@@ -90,23 +90,17 @@ public class SmearPopup extends EffectPopup{
 		lengthSlider.setPaintLabels(true);
 		lengthSlider.setFocusable(false);
 		
-		lengthSlider.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent arg0) {
-				inputLength.setText(Integer.toString(lengthSlider.getValue()));
-				if (lengthSlider.getValue() >= 200) {
-					warning.setVisible(true);
-				} else {
-					warning.setVisible(false);
-				}
-					
-			}
-		});
+		lengthSlider.addPropertyChangeListener(arg0 -> {
+            inputLength.setText(Integer.toString(lengthSlider.getValue()));
+            if (lengthSlider.getValue() >= 200) {
+                warning.setVisible(true);
+            } else {
+                warning.setVisible(false);
+            }
+
+        });
 		
-		inputLength.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				lengthSlider.setValue(Integer.parseInt(inputLength.getText()));
-			}
-		});
+		inputLength.addActionListener(arg0 -> lengthSlider.setValue(Integer.parseInt(inputLength.getText())));
 		
 		content.add(new JLabel("Length"));	
 		content.add(inputLength);
@@ -134,17 +128,9 @@ public class SmearPopup extends EffectPopup{
 		intensitySlider.setSnapToTicks(true);
 		intensitySlider.setFocusable(false);
 		
-		intensitySlider.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent arg0) {
-				inputIntensity.setText(Integer.toString(intensitySlider.getValue()));
-			}
-		});
+		intensitySlider.addPropertyChangeListener(arg0 -> inputIntensity.setText(Integer.toString(intensitySlider.getValue())));
 		
-		inputIntensity.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				intensitySlider.setValue(Integer.parseInt(inputIntensity.getText()));
-			}
-		});
+		inputIntensity.addActionListener(arg0 -> intensitySlider.setValue(Integer.parseInt(inputIntensity.getText())));
 		
 		content.add(new JLabel("Intensity"));
 		content.add(inputIntensity);

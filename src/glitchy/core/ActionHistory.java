@@ -49,10 +49,10 @@ public class ActionHistory {
 	public ActionHistory(CoreController core) {
 		this.core = core;
 		
-		undoHistory = new ArrayList<String[]>();
-		history = new ArrayList<String>();
-		changedPixelStreams = new ArrayList<PixelStream>();
-		changedProperties = new ArrayList<Integer>();
+		undoHistory = new ArrayList<>();
+		history = new ArrayList<>();
+		changedPixelStreams = new ArrayList<>();
+		changedProperties = new ArrayList<>();
 	}
 	
 	/**

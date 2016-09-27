@@ -22,7 +22,7 @@ import javax.swing.SwingUtilities;
  *
  */
 public class GuiController {
-	
+
 	/**
 	 * Reference to the CoreController
 	 */
@@ -35,27 +35,27 @@ public class GuiController {
 	 * The window (JFrame)
 	 */
 	private Window window;
-	
+
 	/**
-	 * Config 
+	 * Config
 	 */
 	private Config config;
-	
+
 	/**
 	 * This is the object containing the RenderProperties
 	 */
 	private RenderProperties renderProperties;
-	
+
 	/**
 	 * The class handling FileChoosing. This class can popup a filechooser and return the selected path.
 	 */
 	private FileChooser fileChooser;
-	
+
 	/**
 	 * Class used for KeyListener for certain hot keys, such as zooming.
 	 */
 	private Keys keys;
-	
+
 	/**
 	 * Initializes the fields, the Styling class and sets up listeners
 	 * @param config
@@ -65,23 +65,23 @@ public class GuiController {
 		Styling.initialize();
 		this.config = config;
 		coreController = core;
-		
+
 		MenuItemListener listener = new MenuItemListener(this);
 		window = new Window(this, listener);
-		
+
 		//Needs metrics to calculate size of certain popups
 		popupController = new PopupController(this, window.getMetrics());
-		
+
 		renderProperties = new RenderProperties(0, 0, RenderProperties.SUM);
-		
+
 		fileChooser = new FileChooser();
 
 		keys = new Keys(this);
 		window.addKeyListener(keys);
-		
+
 		window.setFocusable(true);
 	}
-	
+
 	/**
 	 * Copies a selection into a new layer
 	 */
@@ -92,7 +92,7 @@ public class GuiController {
 		else
 			errorMessage("No selection.");
 	}
-	
+
 	/**
 	 * Cuts out a selection from a layer and adds it into a new
 	 */
@@ -103,7 +103,7 @@ public class GuiController {
 		else
 			errorMessage("No selection.");
 	}
-	
+
 	/**
 	 * Adds the given PixelStream to a layer
 	 * @param pixelStream
@@ -111,7 +111,7 @@ public class GuiController {
 	public void addLayer(PixelStream pixelStream){
 		window.addLayer(pixelStream);
 	}
-	
+
 	/**
 	 * Updates the Canvas with the given BufferedImage
 	 * @param img
@@ -120,14 +120,14 @@ public class GuiController {
 		window.setImage(img);
 		window.repaint();
 	}
-	
+
 	/**
 	 * The the CoreController to update and rerender the image
 	 */
 	public void updateImage() {
 		coreController.updateImage();
 	}
-	
+
 	/**
 	 * Pops up an error message with the given message
 	 * @param msg
@@ -136,7 +136,7 @@ public class GuiController {
 		Toolkit.getDefaultToolkit().beep();
 		JOptionPane.showMessageDialog(window, msg, "Error", JOptionPane.WARNING_MESSAGE);
 	}
-	
+
 	/**
 	 * Tells the corecontroller to load a raw from the given path
 	 * @param path
@@ -145,14 +145,14 @@ public class GuiController {
 	public void importRaw(String path,boolean alpha) {
 		coreController.loadRaw(path, alpha);
 	}
-	
+
 	/**
 	 * Requests an import raw popup from the popupcontroller
 	 */
 	public void requestImportRawPopup() {
 		popupController.requestImportRawPopup(fileChooser, config.getParamaters().get("lastpathraw"));
 	}
-	
+
 	/**
 	 * Imports an image
 	 * Pops up a filechooser and loads the image with the given path (if not cancelled)
@@ -160,38 +160,38 @@ public class GuiController {
 	public void loadImage(){
 		String path;
 		String lastpath = config.getParamaters().get("lastpathimport");
-		
+
 		path = fileChooser.getPath("image", window, lastpath, "Import image");
-		
+
 		if (path != null)
 			coreController.loadImage(path);
 	}
-	
+
 	/**
 	 * Loads a project
 	 * Pops up a filechooser and loads the project with the given path (if not cancelled)
 	 */
-	public void loadProject() {		
+	public void loadProject() {
 		String path;
 		String lastpath = config.getParamaters().get("lastpathload");
-		
+
 		path = fileChooser.getPath("project", window, lastpath, "Open project");
-		
-		if (path != null) {		
+
+		if (path != null) {
 			newProject();
 			coreController.loadProject(path);
 		}
 	}
-	
+
 	/**
-	 * Requests a new project 
+	 * Requests a new project
 	 * Clears corecontroller and window
 	 */
-	public void newProject() {	
+	public void newProject() {
 		coreController.newProject();
 		window.newProject();
 	}
-	
+
 	/**
 	 * Exports an image
 	 * Pops up a filechooser and exports to the given path (if not cancelled)
@@ -201,7 +201,7 @@ public class GuiController {
 		String lastpath = config.getParamaters().get("lastpathexport");
 
 		path = fileChooser.getPath("export", window, lastpath, "Export");
-		
+
 		if (path != null){
 			coreController.saveImage(path , fileChooser.getSelectedFilter());
 			config.saveParameter("lastpathexport", path);
@@ -219,37 +219,38 @@ public class GuiController {
 		String lastpath = config.getParamaters().get("lastpathsave");
 
 		path = fileChooser.getPath("project", window, lastpath, "Save project");
-		
+
 		if (path != null){
 			coreController.saveProject(path, getRenderProperties());
 			return true;
 		}
-		
+
 		else
 			return false;
 	}
-	
+
 	/**
-	 * shows an optionpane which lets the user cancel the close of the program. 
+	 * shows an optionpane which lets the user cancel the close of the program.
 	 * If unsaved changed exists he will be asked whether he wants to save.
 	 */
 	public void exit() {
 		if (coreController.isUnsavedChanges()) {
 			int option = JOptionPane.showConfirmDialog(window, "Do you want to save your project?");
 			if (option == JOptionPane.YES_OPTION){
-				if(saveProject());
+				if(saveProject()){
 					closeProgram();
+				}
 			}
-			
+
 			else if(option == JOptionPane.NO_OPTION){
 				closeProgram();
 			}
-		}		
-		
+		}
+
 		else
 			closeProgram();
 	}
-	
+
 	/**
 	 * closes the program
 	 */
@@ -258,7 +259,7 @@ public class GuiController {
 		window.dispose();
 		System.exit(0);
 	}
-	
+
 	/**
 	 * Sets the initial render properties in corecontroller and in the property panel
 	 * @param w
@@ -271,11 +272,11 @@ public class GuiController {
 				Integer.toString(h),
 				pt);
 	}
-	
+
 	public void updateEffects(String message) {
 		coreController.updateEffects(message);
 	}
-	
+
 	/**
 	 * Sets the render properties and updates the image
 	 * Used when setting renderproperties in the propertypanel
@@ -283,25 +284,25 @@ public class GuiController {
 	 * @param height
 	 * @param rt
 	 */
-	public void setRenderProperties(String width, String height, int rt) {	
-		
+	public void setRenderProperties(String width, String height, int rt) {
+
 		if (!checkInt(width))
 			return;
 		if (!checkInt(height))
 			return;
-		
+
 		int w = Integer.parseInt(width);
 		int h = Integer.parseInt(height);
-		
+
 		coreController.saveAction(w, h, rt, renderProperties);
-		
+
 		renderProperties.w = w;
 		renderProperties.h = h;
 		renderProperties.renderType = rt;
 
 		coreController.updateImage();
 	}
-	
+
 	/**
 	 * method used to set renderproperties when loading an image and when loading a project
 	 * @param width
@@ -316,26 +317,26 @@ public class GuiController {
 			renderProperties.h = height;
 		if (rt < 4)
 			renderProperties.renderType = rt;
-		
+
 		if (update)
 			coreController.updateImage();
 	}
-	
+
 	/**
 	 * this method checks a string variable from property that should be made to an int
 	 * @param var
 	 * @return
 	 */
-	public boolean checkInt(String var) {		
+	public boolean checkInt(String var) {
 		try {
 			Integer.parseInt(var);
-		} catch (NumberFormatException e) {		
+		} catch (NumberFormatException e) {
 			errorMessage("Please input a number");
 			return false;
 		}
 		return true;
 	}
-	
+
 	/**
 	 * tells the window to zoom
 	 * @param dir (either in or out)
@@ -343,14 +344,14 @@ public class GuiController {
 	public void zoom(int dir) {
 		window.zoom(dir);
 	}
-	
+
 	/**
-	 * @return the current renderproperties 
+	 * @return the current renderproperties
 	 */
 	public RenderProperties getRenderProperties() {
 		return renderProperties;
 	}
-	
+
 	/**
 	 * Tells if this key is pressed.
 	 * @param keyCode
@@ -359,7 +360,7 @@ public class GuiController {
 	public boolean isKeyPressed(int keyCode) {
 		return keys.keys.get(keyCode);
 	}
-	
+
 	/**
 	 * Sets the pixelstreams. Used when loading project.
 	 * @param pixelStreams
@@ -367,7 +368,7 @@ public class GuiController {
 	public void setPixelStreams(ArrayList<PixelStream> pixelStreams) {
 		window.setPixelStreams(pixelStreams);
 	}
-	
+
 	/**
 	 * Requests an effect to be made in the corecontroller
 	 * @param pixelStream
@@ -380,13 +381,13 @@ public class GuiController {
 
 	public void requestPopup(String popupName) {
 		PixelStream selectedPixelStream = window.getSelectedLayer();
-		
+
 		if(selectedPixelStream == null)
 			errorMessage("No layer selected.");
 		else
 			popupController.requestPopup(popupName,selectedPixelStream,window);
 	}
-	
+
 	/**
 	 * Removes a layer based on the given PixelStream
 	 * @param pixelStream
@@ -394,14 +395,14 @@ public class GuiController {
 	public void removeLayer(PixelStream pixelStream) {
 		coreController.removePixelStream(pixelStream);
 	}
-	
+
 	/**
 	 * Method called everytime a key is pressed in the Keys class
 	 * Handles certain hotkeys such as zoom and layer selecting with arrow keys
 	 * @param e
 	 */
 	public void hotKeys(KeyEvent e) {
-		
+
 		if (e.isControlDown()) {
 			if (isKeyPressed(Keys.PLUS) || isKeyPressed(Keys.NUM_PLUS)) {
 				zoom(-1);
@@ -416,13 +417,13 @@ public class GuiController {
 				return;
 			}
 		}
-		
+
 		if (isKeyPressed(Keys.ARROW_UP))
 			window.layerSelect(0);
-		
+
 		if (isKeyPressed(Keys.ARROW_DOWN))
 			window.layerSelect(1);
-		
+
 	}
 
 	/**
@@ -431,22 +432,22 @@ public class GuiController {
 	public void requestAboutPopup() {
 		popupController.requestAboutPopup();
 	}
-	
+
 	/**
 	 * Tells the window to show a loadingbar
 	 * @param message
 	 */
-	public void startLoading(String message){		
-		SwingUtilities.invokeLater(() -> window.startLoading(message));		
+	public void startLoading(String message){
+		SwingUtilities.invokeLater(() -> window.startLoading(message));
 	}
-	
+
 	/**
 	 * Tells the window to hide the loadingbar
 	 */
 	public void stopLoading(){
 		window.stopLoading();
 	}
-	
+
 	/**
 	 * Dock propertypanel based on a given direction
 	 * @param dir
@@ -454,7 +455,7 @@ public class GuiController {
 	public void dockPanel(String dir) {
 		window.dockPanel(dir);
 	}
-	
+
 	/**
 	 * Requests the ActionHistory popup from the PopupController
 	 */
@@ -462,21 +463,21 @@ public class GuiController {
 		popupController.requestHistoryPopup(coreController.getActionHistory());
 		window.requestFocus();
 	}
-	
+
 	/**
 	 * Updates the ActionHistory
 	 */
 	public void updateHistory() {
 		popupController.updateHistoryPopup(coreController.getActionHistory());
 	}
-	
+
 	/**
 	 * Undos the latest action
 	 */
 	public void undoAction() {
 		coreController.undoAction();
 	}
-	
+
 	/**
 	 * Populate the propertyPanel with the information from the given PixelStream
 	 * @param pixelStream

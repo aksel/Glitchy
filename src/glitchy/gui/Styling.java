@@ -21,7 +21,7 @@ import javax.swing.border.Border;
  *
  */
 public class Styling {
-	
+
 	/**
 	 * The title of the program
 	 */
@@ -35,12 +35,12 @@ public class Styling {
 	 * The dimension of popups
 	 */
 	public static Dimension POPUP = new Dimension(500,400);
-	
+
 	/**
 	 * The LookAndFeel used
 	 */
 	public static String LAF = UIManager.getSystemLookAndFeelClassName();
-	
+
 	/**
 	 * Layout with elements starting on the left with no gap
 	 */
@@ -49,7 +49,7 @@ public class Styling {
 	 * Layout with elements starting on the left with a 5 pixel gap
 	 */
 	public static FlowLayout FLOW_SMALLGAP_LEFT = new FlowLayout(FlowLayout.LEFT, 5, 5);
-	
+
 	/**
 	 * Icon of the program
 	 */
@@ -75,14 +75,14 @@ public class Styling {
 	 * Logo of the program and website
 	 */
 	public static ImageIcon LOGO;
-	
+
 	/**
 	 * A border with an outer raised border and inner lowered border.
 	 */
 	public static final Border COMPOUND_BORDER = BorderFactory.createCompoundBorder(
 			BorderFactory.createRaisedBevelBorder(),
 			BorderFactory.createLoweredBevelBorder());
-	
+
 	/**
 	 * A raised border
 	 */
@@ -95,7 +95,7 @@ public class Styling {
 	 * An etched border 
 	 */
 	public static final Border ETCHED = BorderFactory.createEtchedBorder();
-	
+
 	/**
 	 * Color used when layer is selected
 	 * Darkens the layer
@@ -106,12 +106,12 @@ public class Styling {
 	 * transparent blue
 	 */
 	public static final Color LAYER_HIGHLIGHT = new Color(0,0,255, 100);
-	
+
 	/**
 	 * Initialises the image fields
 	 */
 	public static void initialize(){
-		
+
 		try {
 			ICON = ImageIO.read(new File(("res/icon.png")));
 			CANVAS_BACKGROUND = ImageIO.read(new File(("res/canvasBackground.png")));
@@ -119,8 +119,8 @@ public class Styling {
 			HIDE_ICON = new ImageIcon(ImageIO.read(new File(("res/hidden.png"))));
 			QUESTIONMARK = new ImageIcon(ImageIO.read(new File(("res/questionmark.png"))));
 			LOGO = new ImageIcon(ImageIO.read(new File("res/logo.png")));
-			} catch (IOException e) {
-			
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }

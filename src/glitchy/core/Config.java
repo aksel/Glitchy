@@ -19,7 +19,7 @@ public class Config {
 	/**
 	 * This map contains a list of parameters from the config file, with an apropiate name for easy getting
 	 */
-	private HashMap<String, String> configLines = new HashMap<String, String>();
+	private HashMap<String, String> configLines = new HashMap<>();
 	
 	/**
 	 * Reads the config file
@@ -44,7 +44,7 @@ public class Config {
 		
 		for (String p : configLines.keySet()) {
 			
-			writer.append(p + " " + configLines.get(p));
+			writer.append(p).append(" ").append(configLines.get(p));
 			
 			writer.newLine();
 			
@@ -73,7 +73,7 @@ public class Config {
 	private void readConfig() {
 		
 		//This will probably be changed later, when actual data is saved in this file
-		ArrayList<String> lines = new ArrayList<String>();
+		ArrayList<String> lines = new ArrayList<>();
 		try {
 			lines = getFileArray("glitchy.ini");			
 		} catch (IOException e) {
@@ -112,7 +112,7 @@ public class Config {
 		BufferedReader read = new BufferedReader(new FileReader(path));
 		
 		String currentLine;
-		ArrayList<String> ret = new ArrayList<String>();
+		ArrayList<String> ret = new ArrayList<>();
 
 		while((currentLine = read.readLine()) != null) {
 			

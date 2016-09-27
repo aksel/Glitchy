@@ -135,7 +135,7 @@ public class Layers extends JPanel{
 		layerInfoDim = new Dimension(layerInfoWidth,layerHeight);
 		layerDim = new Dimension(layerWrapperDim.width - layerInfoDim.width,layerHeight);
 
-		layers = new ArrayList<LayerPanel>();
+		layers = new ArrayList<>();
 		
 		layerPanelListener = new LayerPanelListener();
 		
@@ -271,12 +271,7 @@ public class Layers extends JPanel{
 		hs.setContentAreaFilled(false);
 		hs.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
-		hs.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				showOrHide(hs);
-			}		
-		});
+		hs.addActionListener(e -> showOrHide(hs));
 		
 		layout.putConstraint(SpringLayout.WEST, hs, 0, SpringLayout.EAST, thumbLabel);
 		layout.putConstraint(SpringLayout.NORTH, hs, - (i.top), SpringLayout.NORTH, layerInfo);
@@ -326,14 +321,12 @@ public class Layers extends JPanel{
 		
 		JTextField nameField = new JTextField(panel.getPixelStream().getTitle());
 		nameField.setVisible(false);
-		nameField.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				title.setText(nameField.getText());
-				panel.getPixelStream().setTitle(nameField.getText());
-				nameField.setVisible(false);
-				title.setVisible(true);
-			}	
-		});
+		nameField.addActionListener(e -> {
+            title.setText(nameField.getText());
+            panel.getPixelStream().setTitle(nameField.getText());
+            nameField.setVisible(false);
+            title.setVisible(true);
+        });
 		
 		nameField.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent e) {
@@ -344,17 +337,14 @@ public class Layers extends JPanel{
 			}
 		});
 		
-		title.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				title.setVisible(false);
-				nameField.setText(title.getText());
-				nameField.setVisible(true);
-				nameField.requestFocus();
-				nameField.setSelectionStart(0);
-				nameField.setSelectionEnd(nameField.getText().length());
-			}			
-		});
+		title.addActionListener(arg0 -> {
+            title.setVisible(false);
+            nameField.setText(title.getText());
+            nameField.setVisible(true);
+            nameField.requestFocus();
+            nameField.setSelectionStart(0);
+            nameField.setSelectionEnd(nameField.getText().length());
+        });
 		
 		layout.putConstraint(SpringLayout.WEST, title, 2, SpringLayout.EAST, button);      
 		layout.putConstraint(SpringLayout.WEST, nameField, 2, SpringLayout.EAST, button);
@@ -376,7 +366,7 @@ public class Layers extends JPanel{
 			hideOrShowLayer(Integer.parseInt(button.getName()), false);
 		}
 		else {		
-			button.setIcon((Icon) Styling.SHOW_ICON);
+			button.setIcon(Styling.SHOW_ICON);
 			hideOrShowLayer(Integer.parseInt(button.getName()), true);
 		}	
 	}
@@ -403,8 +393,10 @@ public class Layers extends JPanel{
 	 */
 	private void hideOrShowLayer(int number, boolean tof) {
 		LayerPanel layer = getLayer(number);
-		layer.getPixelStream().setVisible(tof);
-		
+		if (layer != null) {
+			layer.getPixelStream().setVisible(tof);
+		}
+
 		workspace.updateImage();
 	}
 
@@ -420,18 +412,12 @@ public class Layers extends JPanel{
 		
 		item.setName(Integer.toString(panel.number));
 		
-		item.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JMenuItem item = (JMenuItem) e.getSource();
-				removeLayer(Integer.parseInt(item.getName()));
-			}	
-		});
+		item.addActionListener(e -> {
+            JMenuItem item1 = (JMenuItem) e.getSource();
+            removeLayer(Integer.parseInt(item1.getName()));
+        });
 		
-		item2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new HelpPopup(HelpContent.getLayerDescription()).popup(workspace);
-			}	
-		});
+		item2.addActionListener(e -> new HelpPopup(HelpContent.getLayerDescription()).popup(workspace));
 
 		popUp.add(item);
 		popUp.add(item2);
@@ -481,8 +467,10 @@ public class Layers extends JPanel{
 		LayerPanel removeLayer = getLayer(number);
 		
 		layers.remove(removeLayer);
-		workspace.removeLayer(removeLayer.getPixelStream());
-		
+		if (removeLayer != null) {
+			workspace.removeLayer(removeLayer.getPixelStream());
+		}
+
 		repopulate();
 	}
 	

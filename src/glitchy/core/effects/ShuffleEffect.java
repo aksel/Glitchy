@@ -57,7 +57,6 @@ public class ShuffleEffect extends AbstractEffect{
 	/**
 	 * Shuffles each channel independently.
 	 * @param pixelStream PixelStream to shuffle
-	 * @param pixelStream PixelStream pixelStream
 	 */
 	private void shuffleChannels(PixelStream pixelStream){
 		int[] pixels = pixelStream.getPixels();

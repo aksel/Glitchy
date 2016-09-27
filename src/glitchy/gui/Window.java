@@ -215,14 +215,12 @@ public class Window extends JFrame{
 	 * Disposes of the loadingbar
 	 */
 	public void stopLoading() {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				if(loadingDialog!=null){				
-					loadingDialog.setVisible(false);
-					loadingDialog.dispose();
-				}
-			}
-		});
+		SwingUtilities.invokeLater(() -> {
+            if(loadingDialog!=null){
+                loadingDialog.setVisible(false);
+                loadingDialog.dispose();
+            }
+        });
 	}
 	
 	/**

@@ -15,7 +15,7 @@ public class ImageRenderer{
 	 * @author Aksel
 	 */
 	interface PixelMerger{
-		public int mergePixels(int p1, int p2, boolean alpha);
+		int mergePixels(int p1, int p2, boolean alpha);
 	}
 	
 	/**
@@ -180,9 +180,7 @@ public class ImageRenderer{
 		g1 += g2;
 		b1 += b2;
 
-		int merged = ((a1/2) << 24) | ((r1/2) << 16) | ((g1/2) << 8) | (b1/2);
-
-		return merged;
+		return ((a1/2) << 24) | ((r1/2) << 16) | ((g1/2) << 8) | (b1/2);
 	}
 	
 	/**

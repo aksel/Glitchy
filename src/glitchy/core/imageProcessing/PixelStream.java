@@ -23,9 +23,9 @@ public class PixelStream implements Serializable{
 	 */
 	private int[] pixels;
 	
-	private ArrayList<AbstractEffect> effects = new ArrayList<AbstractEffect>();
+	private ArrayList<AbstractEffect> effects = new ArrayList<>();
 	
-	private ArrayList<Boolean[]> effectActions = new ArrayList<Boolean[]>();
+	private ArrayList<Boolean[]> effectActions = new ArrayList<>();
 	
 	/**
 	 * The source image's width.
@@ -89,7 +89,7 @@ public class PixelStream implements Serializable{
 		w = img.getWidth();
 		h = img.getHeight();
 		
-		setPixels(img.getRGB(0, 0, w, h, (int[]) null, 0, w));
+		setPixels(img.getRGB(0, 0, w, h, null, 0, w));
 		originalPixels = pixels.clone();
 		
 		hasAlpha = img.getColorModel().hasAlpha();
@@ -380,7 +380,7 @@ public class PixelStream implements Serializable{
 	}
 
 	public ArrayList<String> getAppliedEffects() {
-		ArrayList<String> effectStrings = new ArrayList<String>();
+		ArrayList<String> effectStrings = new ArrayList<>();
 		
 		for(AbstractEffect effect : effects)
 			effectStrings.add(effect.toString());

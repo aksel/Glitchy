@@ -71,8 +71,6 @@ public class SortEffect extends AbstractEffect{
 		Arrays.sort(sorted);
 			
 		//Insert the sorted subarray.
-		for(int i = 0; i < sorted.length; i++){
-			pixels[i + range[0]] = sorted[i];
-		}
+		System.arraycopy(sorted, 0, pixels, range[0], sorted.length);
 	}
 }

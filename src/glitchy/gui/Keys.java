@@ -35,7 +35,7 @@ public class Keys extends KeyAdapter{
 		
 		this.gui = gui;
 		
-		keys = new HashMap<Integer, Boolean>();
+		keys = new HashMap<>();
 	
 		//0
 		keys.put(ZERO, false);

@@ -101,22 +101,10 @@ public class ImportRawPopup extends Popup{
 
 		ok = new JButton("OK");
 		ok.setEnabled(false);
-		ok.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				close();
-			}
-		});
+		ok.addActionListener(arg0 -> close());
 
 		cancel = new JButton("Cancel");
-		cancel.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				cancel();
-			}
-		});
+		cancel.addActionListener(arg0 -> cancel());
 
 		panel.add(ok);
 		panel.add(cancel);
@@ -162,12 +150,7 @@ public class ImportRawPopup extends Popup{
 		JPanel panel = new JPanel();
 
 		JButton b = new JButton("Select file");
-		b.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				chooseFile();
-			}
-		});
+		b.addActionListener(arg0 -> chooseFile());
 
 		filePath = new JTextField();
 		filePath.setColumns(25);

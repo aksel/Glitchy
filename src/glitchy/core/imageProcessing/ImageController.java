@@ -34,7 +34,7 @@ public class ImageController implements Serializable{
 	 * Creates a new ImageController.
 	 */
 	public ImageController(){
-		pixelStreams = new ArrayList<PixelStream>();
+		pixelStreams = new ArrayList<>();
 		effectController = new EffectController();
 		renderer = new ImageRenderer();
 	}

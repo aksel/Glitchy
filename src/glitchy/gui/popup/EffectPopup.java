@@ -125,20 +125,10 @@ public abstract class EffectPopup extends Popup {
 	private void populateButtonsPanel(){
 		
 		JButton applyButton = new JButton("Apply");
-		applyButton.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				closeApply();
-			}
-		});
+		applyButton.addActionListener(e -> closeApply());
 		
 		JButton cancelButton = new JButton("Cancel");
-		cancelButton.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				close();
-			}
-		});
+		cancelButton.addActionListener(e -> close());
 		
 		buttonsPanel.add(applyButton);
 		buttonsPanel.add(cancelButton);

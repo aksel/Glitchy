@@ -33,26 +33,22 @@ public class RAWDataConverter {
 			int bufferSize;
 
 			if(alpha){
-				converter = (byteIndex, buffer) -> {
-					return mergeBytes(
-							buffer[byteIndex++],
-							buffer[byteIndex++],
-							buffer[byteIndex++],
-							buffer[byteIndex]);
-				};
+				converter = (byteIndex, buffer) -> mergeBytes(
+                        buffer[byteIndex++],
+                        buffer[byteIndex++],
+                        buffer[byteIndex++],
+                        buffer[byteIndex]);
 
 				channelNumber = 4;
 				bufferSize = 1024;
 			}
 
 			else{
-				converter = (byteIndex, buffer) -> {
-					return mergeBytes(
-							(byte) 0xff,
-							buffer[byteIndex++],
-							buffer[byteIndex++],
-							buffer[byteIndex]);
-				};
+				converter = (byteIndex, buffer) -> mergeBytes(
+                        (byte) 0xff,
+                        buffer[byteIndex++],
+                        buffer[byteIndex++],
+                        buffer[byteIndex]);
 
 				channelNumber = 3;
 				bufferSize = 1215;
@@ -76,7 +72,6 @@ public class RAWDataConverter {
 			}
 
 			fis.close();
-			fis = null;
 
 			return container;
 

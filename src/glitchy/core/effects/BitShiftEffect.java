@@ -52,7 +52,7 @@ public class BitShiftEffect extends AbstractEffect{
 			cR = p & mask;
 			
 			//Remove remainder, and insert previous remainder at start.
-			p = alphaChannel | (p >>>= shiftNum) | pR << affectedBits-shiftNum;
+			p = alphaChannel | (p >>> shiftNum) | pR << affectedBits-shiftNum;
 			
 			//Store current remainder for use in next iteration.
 			pR = cR;

@@ -108,11 +108,7 @@ public class FileChooser {
 	 * @return a filefilter
 	 */
 	private FileFilter getImageFilter() {
-		FileFilter filter = new FileNameExtensionFilter
-				("Image files",
-				"png", "jpg", "jpeg", "bmp", "gif");
-	
-		return filter;
+		return new FileNameExtensionFilter("Image files", "png", "jpg", "jpeg", "bmp", "gif");
 	}
 	
 	/**
@@ -121,11 +117,7 @@ public class FileChooser {
 	 * @return a filefilter
 	 */
 	private FileFilter getProjectFilter() {
-		FileFilter filter = new FileNameExtensionFilter
-				("Project files",
-				"glp");
-		
-		return filter;
+		return new FileNameExtensionFilter("Project files",	"glp");
 	}
 	
 }

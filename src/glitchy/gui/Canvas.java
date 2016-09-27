@@ -115,7 +115,7 @@ public class Canvas extends JPanel{
 	 * @return a boolean that indicates whether the canvas has an image
 	 */
 	public boolean hasImage() {
-		return image == null ? false:true;
+		return image != null;
 	}
 
 	/**

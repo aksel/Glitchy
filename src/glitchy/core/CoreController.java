@@ -415,8 +415,9 @@ public class CoreController {
 	public void undoAction() {
 		String message = history.undoAction();
 		guiController.updateHistory();
-		if (message != "") 
+		if(!message.equals("")) {
 			updateEffects(message);
+		}
 	}
 	
 	/**

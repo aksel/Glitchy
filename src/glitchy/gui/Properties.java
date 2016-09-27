@@ -172,7 +172,7 @@ public class Properties extends JPanel{
 		canvasHeight = createPropertiesField();
 		
 		String[] renderTypesNames = {"Sum", "Bitwise OR", "Difference", "Average"};
-	    renderTypesBox = new JComboBox<String>(renderTypesNames);
+	    renderTypesBox = new JComboBox<>(renderTypesNames);
 	    renderTypesBox.setEnabled(false);
 	    renderTypesBox.addActionListener(listener);
 	    
@@ -300,16 +300,8 @@ public class Properties extends JPanel{
 		JMenuItem item = new JMenuItem("Dock left");
 		JMenuItem item2 = new JMenuItem("Dock right");
 		
-		item.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				workspace.dockPPanel("left");
-			}	
-		});
-		item2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				workspace.dockPPanel("right");
-			}	
-		});
+		item.addActionListener(arg0 -> workspace.dockPPanel("left"));
+		item2.addActionListener(arg0 -> workspace.dockPPanel("right"));
 		
 		popUp.add(item);
 		popUp.add(item2);
@@ -402,7 +394,7 @@ public class Properties extends JPanel{
 		int buttonWidth = effectsPanel.getPreferredSize().width - JScrollPane.WIDTH;
 		for(AbstractEffect effect : effects){
 			
-			ImageIcon icon = null;
+			ImageIcon icon;
 			if(effect.isEnabled())
 				icon = Styling.SHOW_ICON;
 			
@@ -417,23 +409,19 @@ public class Properties extends JPanel{
 			effectButton.setBorder(null);
 			effectButton.setFocusPainted(false);
 			effectButton.setContentAreaFilled(false);
-			effectButton.addActionListener(new ActionListener(){
+			effectButton.addActionListener(e -> {
+                workspace.effectAction("Toggling " + effect.toString() + " to " + !effect.isEnabled(), pixelStream);
 
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					workspace.effectAction("Toggling " + effect.toString() + " to " + !effect.isEnabled(), pixelStream);
-					
-					effect.toggleEnabled();
-					if(effect.isEnabled())
-						effectButton.setIcon(Styling.SHOW_ICON);
-					
-					else
-						effectButton.setIcon(Styling.HIDE_ICON);
-					
-					pixelStream.setRendered(false);
-					workspace.updateEffects("Toggling " + effect.toString() + " to " + effect.isEnabled());
-				}
-			});
+                effect.toggleEnabled();
+                if(effect.isEnabled())
+                    effectButton.setIcon(Styling.SHOW_ICON);
+
+                else
+                    effectButton.setIcon(Styling.HIDE_ICON);
+
+                pixelStream.setRendered(false);
+                workspace.updateEffects("Toggling " + effect.toString() + " to " + effect.isEnabled());
+            });
 			
 //			effectButton.setComponentPopupMenu(createEffectButtonMenu(pixelStream, effect, effectButton));
 
