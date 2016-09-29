@@ -188,8 +188,15 @@ public class GuiController {
 	 * Clears corecontroller and window
 	 */
 	public void newProject() {
-		coreController.newProject();
-		window.newProject();
+		if (coreController.isUnsavedChanges()) {
+			int option = JOptionPane.showConfirmDialog(window, "Do you want to save your project?");
+			if (option == JOptionPane.YES_OPTION){
+				if(saveProject()){
+					coreController.newProject();
+					window.newProject();
+				}
+			}
+		}
 	}
 
 	/**
