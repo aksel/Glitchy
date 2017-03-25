@@ -195,6 +195,9 @@ public class GuiController {
 					coreController.newProject();
 					window.newProject();
 				}
+			} else {
+				coreController.newProject();
+				window.newProject();
 			}
 		}
 	}
