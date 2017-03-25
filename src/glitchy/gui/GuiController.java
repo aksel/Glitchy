@@ -195,7 +195,7 @@ public class GuiController {
 					coreController.newProject();
 					window.newProject();
 				}
-			} else {
+			} else if (option != JOptionPane.CANCEL_OPTION) {
 				coreController.newProject();
 				window.newProject();
 			}
